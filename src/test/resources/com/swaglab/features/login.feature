@@ -22,7 +22,7 @@ Feature: As a customer I want to be able to login onto the website, so I can acc
     When I enter the username ""
     And I enter the password "secret_sauce"
     And I click on the login button
-    Then I should see an error message "Epic sadface: Username is required"
+    Then I should see an error message "Username is required"
 
 
   @login
@@ -31,7 +31,7 @@ Feature: As a customer I want to be able to login onto the website, so I can acc
     When I enter the username "standard_user"
     And I enter the password ""
     And I click on the login button
-    Then I should see an error message "Epic sadface: Password is required"
+    Then I should see an error message "Password is required"
 
   @login
   Scenario: Empty Username and Password
@@ -39,7 +39,7 @@ Feature: As a customer I want to be able to login onto the website, so I can acc
   When I enter the username ""
   And I enter the password ""
   And I click on the login button
-  Then I should see an error message "Epic sadface: Username is required"
+  Then I should see an error message "Username and Password is required"
 
   @login
   Scenario: Incorrect Username
@@ -47,7 +47,7 @@ Feature: As a customer I want to be able to login onto the website, so I can acc
     When I enter the username "incorrect_user"
     And I enter the password "secret_sauce"
     And I click on the login button
-    Then I should see an error message "Epic sadface: Username and password do not match any user in this service"
+    Then I should see an error message "Username and password do not match any user in this service"
 
   @login
   Scenario: Incorrect Password
@@ -55,4 +55,4 @@ Feature: As a customer I want to be able to login onto the website, so I can acc
     When I enter the username "standard_user"
     And I enter the password "incorrect_password"
     And I click on the login button
-    Then I should see an error message "Epic sadface: Username and password do not match any user in this service"
+    Then I should see an error message "Username and password do not match any user in this service"

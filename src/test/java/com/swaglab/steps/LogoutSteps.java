@@ -7,18 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.swaglab.WebDriverSetup;
 
 public class LogoutSteps {
+    private WebDriverSetup setup;
     private WebDriver driver;
 
     @Before
     public void initializeDriver() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        setup = new WebDriverSetup();
+        driver = setup.getDriver();
     }
 
     @Given("I am logged in")

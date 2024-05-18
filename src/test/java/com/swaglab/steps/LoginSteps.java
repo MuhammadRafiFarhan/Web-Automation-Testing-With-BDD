@@ -3,19 +3,20 @@ package com.swaglab.steps;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.swaglab.WebDriverSetup;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginSteps {
+    private WebDriverSetup setup;
     private WebDriver driver;
 
     @Before
     public void initializeDriver() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        setup = new WebDriverSetup();
+        driver = setup.getDriver();
     }
 
     @Given("I have opened the browser")
