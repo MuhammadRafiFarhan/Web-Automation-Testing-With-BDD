@@ -178,10 +178,12 @@ Berikut adalah struktur folder dari proyek ini:
     <br>
     b. Tambahkan komentar yang berarti secara ringkas. Bisa secara inline ataupun block comment (khusus di atas nama kelas). Contoh:<br>
     ```java
+
     /**
-     * Contoh block comment dengan /*
+     * Contoh block comment:
      * Komentar ini berisi penjelasan singkat dari kelas ini
      */
+
     public class LoginSteps {
       // Komentar inline
       private static WebDriver driver;
