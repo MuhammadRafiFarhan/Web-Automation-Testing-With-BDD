@@ -187,8 +187,8 @@ Berikut adalah struktur folder dari proyek ini:
       private static WebDriver driver;
     }
     ```
-3. Membuat file `WebDriverSetup` pada folder `src/test/java/com/swaglab/utils` yang berisi setup WebDriver yang akan digunakan dalam pengujian. Contoh:
-    ```java
+3. Membuat file `WebDriverSetup` pada folder `src/test/java/com/swaglab/utils` yang berisi setup WebDriver yang akan digunakan dalam pengujian. Contoh:<br>
+      ```java
       package com.swaglab.utils;
   
       public class WebDriverSetup {
