@@ -5,6 +5,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
 import com.swaglab.utils.WebDriverSetup;
 
@@ -17,11 +18,19 @@ import com.swaglab.locators.LoginPageLocators;
 
 public class LoginSteps {
     private static WebDriver driver;
+    private static HomePageLocators homePageLocators;
+    private static LoginPageLocators loginPageLocators;
 
     @Before
     public void initializeDriver() {
         if (driver == null) {
             driver = WebDriverSetup.getDriver();
+
+            loginPageLocators = new LoginPageLocators();
+            PageFactory.initElements(driver, loginPageLocators);
+
+            homePageLocators = new HomePageLocators(driver);
+            PageFactory.initElements(driver, homePageLocators);
         }
     }
 
@@ -36,17 +45,17 @@ public class LoginSteps {
 
     @Then("username box should exist")
     public void username_box_should_exist() {
-        assertTrue(driver.findElement(LoginPageLocators.usernameField).isDisplayed());
+        assertTrue(loginPageLocators.getUsernameField().isDisplayed());
     }
 
     @Then("password box should exist")
     public void password_box_should_exist() {
-        assertTrue(driver.findElement(LoginPageLocators.passwordField).isDisplayed());
+        assertTrue(loginPageLocators.getPasswordField().isDisplayed());
     }
 
     @Then("login button should exist")
     public void login_button_should_exist() {
-        assertTrue(driver.findElement(LoginPageLocators.loginButton).isDisplayed());
+        assertTrue(loginPageLocators.getLoginButton().isDisplayed());
     }
 
     @Given("I am on the Swag Labs login page")
@@ -56,17 +65,17 @@ public class LoginSteps {
 
     @When("I enter the username {string}")
     public void I_enter_the_username(String username) {
-        driver.findElement(LoginPageLocators.usernameField).sendKeys(username);
+        loginPageLocators.enterUsername(username);
     }
 
     @And("I enter the password {string}")
     public void I_enter_the_password(String password) {
-        driver.findElement(LoginPageLocators.passwordField).sendKeys(password);
+        loginPageLocators.enterPassword(password);
     }
 
     @And("I click on the login button")
     public void I_click_on_the_login_button() {
-        driver.findElement(LoginPageLocators.loginButton).click();
+        loginPageLocators.clickLoginButton();
     }
 
     @Then("I should be taken to the products page")
@@ -74,12 +83,13 @@ public class LoginSteps {
         String url = driver.getCurrentUrl();
 
         assertEquals(url, HomePageLocators.INVENTORY_PAGE_URL);
-        assertEquals(null != driver.findElement(HomePageLocators.inventoryList).findElements(HomePageLocators.inventoryItem) , true);
+        assertTrue(homePageLocators.getInventoryList().isDisplayed());
+        assertEquals(HomePageLocators.INVENTORY_ITEMS_SIZE, homePageLocators.getInventoryItems().size());
     }
 
     @Then("I should see an error message {string}")
     public void I_should_see_an_error_message(String errorMessage) {
-        String actualErrorMessage = driver.findElement(LoginPageLocators.errorMessage).getText();
+        String actualErrorMessage = loginPageLocators.getErrorMessage().getText();
 
         assertEquals(errorMessage, actualErrorMessage);
     }
@@ -88,14 +98,14 @@ public class LoginSteps {
     public void fields_should_be_highlighted_in_red(String emptyField, String plural) {
         switch(emptyField) {
             case "Username":
-                assertTrue(driver.findElement(LoginPageLocators.errorUsernameField).isDisplayed());
+                assertTrue(loginPageLocators.getErrorUsernameField().isDisplayed());
                 break;
             case "Password":
-                assertTrue(driver.findElement(LoginPageLocators.errorPasswordField).isDisplayed());
+                assertTrue(loginPageLocators.getErrorPasswordField().isDisplayed());
                 break;
             case "Username and Password":
-                assertTrue(driver.findElement(LoginPageLocators.usernameField).isDisplayed());
-                assertTrue(driver.findElement(LoginPageLocators.passwordField).isDisplayed());
+                assertTrue(loginPageLocators.getErrorUsernameField().isDisplayed());
+                assertTrue(loginPageLocators.getErrorPasswordField().isDisplayed());
                 break;
         }
     }

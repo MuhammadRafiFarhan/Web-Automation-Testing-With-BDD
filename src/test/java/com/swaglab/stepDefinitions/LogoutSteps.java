@@ -5,7 +5,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import com.swaglab.utils.WebDriverSetup;
 
@@ -17,45 +17,45 @@ import com.swaglab.locators.HomePageLocators;
 import com.swaglab.locators.LoginPageLocators;
 
 public class LogoutSteps {
-    // private WebDriverSetup setup;
     private static WebDriver driver;
+    private static HomePageLocators homepageLocator;
+    private static LoginPageLocators loginPageLocators;
 
     @Before
     public void initializeDriver() {
         if (driver == null) {
-            // setup = new WebDriverSetup();
             driver = WebDriverSetup.getDriver();
+            
+            loginPageLocators = new LoginPageLocators();
+            PageFactory.initElements(driver, loginPageLocators);
+            
+            homepageLocator = new HomePageLocators(driver);
+            PageFactory.initElements(driver, homepageLocator);
         }
     }
 
     @Given("I am currently logged in")
     public void I_am_currently_logged_in() {
         driver.get(LoginPageLocators.LOGIN_PAGE_URL);
-        driver.findElement(LoginPageLocators.usernameField).sendKeys("standard_user");
-        driver.findElement(LoginPageLocators.passwordField).sendKeys("secret_sauce");
-        driver.findElement(LoginPageLocators.loginButton).click();
+        loginPageLocators.log_in("standard_user", "secret_sauce");
     }
 
     @When("I click on the menu button")
     public void I_click_on_the_menu_button() {
-        driver.findElement(HomePageLocators.burgerMenu).click();
-        // wait for the menu to be displayed
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        homepageLocator.clickBurgerMenu();
     }
 
     @And("I click on the logout button")
     public void I_click_on_the_logout_button() {
-        driver.findElement(HomePageLocators.logoutButtonLink).click();
+        homepageLocator.clickLogoutMenu();
     }
 
     @Then("I should be redirected to the login page")
     public void I_should_be_redirected_to_the_login_page() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 
-        final WebElement loginContainer = driver.findElement(LoginPageLocators.loginContainer);
-
         // page is displayed
-        assertTrue(loginContainer.isDisplayed());
+        assertTrue(loginPageLocators.getLoginContainer().isDisplayed());
     }
 
     @AfterAll
