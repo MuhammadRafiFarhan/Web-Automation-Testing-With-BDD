@@ -177,18 +177,17 @@ Berikut adalah struktur folder dari proyek ini:
     ```
     <br>
     b. Tambahkan komentar yang berarti secara ringkas. Bisa secara inline ataupun block comment (khusus di atas nama kelas). Contoh:<br>
-    ```bash
+        
+        /**
+         * Contoh block comment:
+         * Komentar ini berisi penjelasan singkat dari kelas ini
+         */
 
-    /**
-     * Contoh block comment:
-     * Komentar ini berisi penjelasan singkat dari kelas ini
-     */
-
-    public class LoginSteps {
-      // Komentar inline
-      private static WebDriver driver;
-    }
-    ```
+        public class LoginSteps {
+          // Komentar inline
+          private static WebDriver driver;
+        }
+        
     <br>
 3. Membuat file `WebDriverSetup` pada folder `src/test/java/com/swaglab/utils` yang berisi setup WebDriver yang akan digunakan dalam pengujian. Contoh:<br>
       ```java
