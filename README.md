@@ -121,7 +121,7 @@ Berikut adalah struktur folder dari proyek ini:
 
 
 ## Alur Kerja Pembuatan Test Script
-1. Membuat file `.feature` pada folder `src/test/resources/com/swaglab/features` yang berisi skenario pengujian yang akan dijalankan dengan sintaks Gherkin. Pastikan nama file bersesuaian dengan nama fitur yang akan diuji.
+1. Membuat file `.feature` pada folder `src/test/resources/com/swaglab/features` yang berisi skenario pengujian yang akan dijalankan dengan sintaks Gherkin. Pastikan nama file bersesuaian dengan nama fitur yang akan diuji.<br>
    a. Format dasar dalam file feature adalah sebagai berikut:
    ```gherkin
     Feature: <nama fitur yang diuji>
@@ -131,7 +131,7 @@ Berikut adalah struktur folder dari proyek ini:
           When <langkah aksi>
           Then <langkah hasil>
     ```
-2. Membuat file `Step Definitions` pada folder `src/test/java/com/swaglab/stepDefinitions` yang berisi implementasi dari skenario pengujian yang ada pada file `.feature`. Jumlah file `Step Definitions` harus sama dengan jumlah file `.feature`.
+2. Membuat file `Step Definitions` pada folder `src/test/java/com/swaglab/stepDefinitions` yang berisi implementasi dari skenario pengujian yang ada pada file `.feature`. Jumlah file `Step Definitions` harus sama dengan jumlah file `.feature`.<br>
    a. Format dasar dalam file `Step Definitions` adalah sebagai berikut:
    ```java
     package com.swaglab.stepDefinitions;
@@ -175,6 +175,7 @@ Berikut adalah struktur folder dari proyek ini:
       }
     }
     ```
+    <br>
     b. Tambahkan komentar yang berarti secara ringkas. Bisa secara inline ataupun block comment (khusus di atas nama kelas). Contoh:
     ```java
     /**
@@ -223,13 +224,13 @@ Berikut adalah struktur folder dari proyek ini:
     .
     cucumber.<nama-properties-n>=<value-n>
     ```
-6. Membuat file-file locators pada folder `src/test/java/com/swaglab/locators` yang berisi locator dari elemen-elemen yang ada pada aplikasi web yang akan diuji. Di dalamnya, terdapat repositori elemen-elemen web yang akan diuji beserta metode-metode yang digunakan untuk mengakses elemen-elemen tersebut.
-    a. Simpan URL statis disini dengan scope public
-    b. Simpan nilai-nilai statis dari elemen-elemen web yang akan diuji disini dengan scope public
-    c. Simpan web element dengan anotasi `@FindBy` disini, dalam scope protected.
-    d. Buat constructor public untuk menginisialisasi web element
-    e. Tambahkan metode getter public untuk mengakses web element
-    f. Tambahkan metode public lain untuk mengakses elemen-elemen web yang ada pada aplikasi web yang akan diuji. Misal:
+6. Membuat file-file locators pada folder `src/test/java/com/swaglab/locators` yang berisi locator dari elemen-elemen yang ada pada aplikasi web yang akan diuji. Di dalamnya, terdapat repositori elemen-elemen web yang akan diuji beserta metode-metode yang digunakan untuk mengakses elemen-elemen tersebut.<br>
+    a. Simpan URL statis disini dengan scope public<br>
+    b. Simpan nilai-nilai statis dari elemen-elemen web yang akan diuji disini dengan scope public<br>
+    c. Simpan web element dengan anotasi `@FindBy` disini, dalam scope protected.<br>
+    d. Buat constructor public untuk menginisialisasi web element<br>
+    e. Tambahkan metode getter public untuk mengakses web element<br>
+    f. Tambahkan metode public lain untuk mengakses elemen-elemen web yang ada pada aplikasi web yang akan diuji. Misal:<br>
     ```java
     public void enterUsername(String username) {
         usernameField.sendKeys(username);
