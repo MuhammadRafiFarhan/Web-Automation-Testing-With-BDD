@@ -31,7 +31,7 @@ mvn surefire-report:report
     │       ├───java
     │       │   └───com
     │       │       └───swaglab
-    │       │           ├───steps
+    │       │           ├───stepDefinitions
     │       │           │    ├─── LoginSteps.java (step definition)
     │       │           │    └─── LogoutSteps.java (step definition)
     │       │           └─── TestRunner.java (cucumber runner class)
