@@ -13,17 +13,17 @@ public class LoginPageLocators {
     public static final String LOGIN_PAGE_URL = "https://www.saucedemo.com/";
 
     @FindBy(css = ".login_container")
-    public WebElement loginContainer;
+    WebElement loginContainer;
     @FindBy(id = "user-name")
-    public WebElement usernameField;
+    WebElement usernameField;
     @FindBy(id = "password")
-    public WebElement passwordField;
+    WebElement passwordField;
     @FindBy(id = "login-button")
-    public WebElement loginButton;
+    WebElement loginButton;
     @FindBy(css = "#user-name.input_error")
-    public WebElement errorUsernameField;
+    WebElement errorUsernameField;
     @FindBy(css = "#password.input_error")
-    public WebElement errorPasswordField;
+    WebElement errorPasswordField;
     @FindBy(css = ".login_wrapper-inner #login_button_container .login-box .error-message-container h3")
     public WebElement errorMessage;
     
