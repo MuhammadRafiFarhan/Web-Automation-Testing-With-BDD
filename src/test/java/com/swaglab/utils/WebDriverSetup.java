@@ -6,14 +6,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverSetup {
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
-    public WebDriverSetup() {
+    private WebDriverSetup() {
         WebDriverManager.chromedriver().setup();
-        this.driver = new ChromeDriver();
     }
-
-    public WebDriver getDriver() {
-        return this.driver;
+    
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            WebDriverSetup.driver = new ChromeDriver();
+        }
+        
+        return driver;
     }
 }

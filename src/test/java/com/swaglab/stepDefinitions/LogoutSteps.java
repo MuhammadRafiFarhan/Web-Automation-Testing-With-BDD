@@ -1,6 +1,6 @@
 package com.swaglab.stepDefinitions;
 
-import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
@@ -17,13 +17,15 @@ import com.swaglab.locators.HomePageLocators;
 import com.swaglab.locators.LoginPageLocators;
 
 public class LogoutSteps {
-    private WebDriverSetup setup;
-    private WebDriver driver;
+    // private WebDriverSetup setup;
+    private static WebDriver driver;
 
     @Before
     public void initializeDriver() {
-        setup = new WebDriverSetup();
-        driver = setup.getDriver();
+        if (driver == null) {
+            // setup = new WebDriverSetup();
+            driver = WebDriverSetup.getDriver();
+        }
     }
 
     @Given("I am currently logged in")
@@ -56,8 +58,9 @@ public class LogoutSteps {
         assertTrue(loginContainer.isDisplayed());
     }
 
-    @After
-    public void closeBrowser() {
+    @AfterAll
+    public static void closeBrowser() {
+        System.out.println("Closing the browser after all logout scenarios are executed.");
         driver.quit();
     }
 }
