@@ -1,6 +1,6 @@
 Feature: Inventory Page Functionality
 
-  Rule: User can view the catalog of items available for order on the Dashboard page
+  Rule: User can view the catalog of items available for order on the Inventory page
 
     @inventory @view
     Scenario: User views the catalog of items

@@ -18,6 +18,8 @@ Feature: Checkout Page Functionality
       And I should be on the page with the message "Thank you for your order!"
       And I should see a "Back Home" button
 
+ Rule: User cannot proceed to checkout without input the Zip/Postal Code
+
     @checkout @failed
     Scenario: Input Zip/Postal Code is missing or incorrect
       Given I am currently logged in 
@@ -27,6 +29,8 @@ Feature: Checkout Page Functionality
       And I fill in the last name field with "Farhan"
       And I click the "Continue" button
       Then I should see a warning message "Zip/Postal Code is required!"
+
+ Rule: User cannot proceed to checkout without input the Last Name
 
     @checkout @failed
     Scenario: Input Last Name is missing or incorrect
