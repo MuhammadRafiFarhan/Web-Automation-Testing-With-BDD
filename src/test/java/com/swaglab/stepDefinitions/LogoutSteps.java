@@ -47,7 +47,7 @@ public class LogoutSteps {
 
     @And("I click on the logout button")
     public void I_click_on_the_logout_button() {
-        homepageLocator.clickLogoutMenu();
+        homepageLocator.clickLogoutButtonLink();
     }
 
     @Then("I should be redirected to the login page")

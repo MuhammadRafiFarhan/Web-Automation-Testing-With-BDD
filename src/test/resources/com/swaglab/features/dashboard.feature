@@ -4,28 +4,28 @@ Feature: Inventory Page Functionality
 
     @inventory @view
     Scenario: User views the catalog of items
-      Given I am currently logged in
-      When I navigate to the inventory page
-      Then I should see a list of items that can be ordered
+      Given User currently logged in
+      When I open Swaglabs inventory page
+      Then inventory list should exist
+      And add to cart button should exist
+      And cart link should exist
+      And burger menu should exist
+      And product sort should exist
+
 
   Rule: User can select an item from the catalog
 
     @inventory @select
-    Scenario: User selects an item from the catalog
-      Given I am currently logged in
-      And I am on the inventory page
-      When I click the "Add to cart" button for an item
-      Then the button should change to "Remove" with a red color
-      And a notification indicating the item is added should be visible on the Cart button
+    Scenario: User adds an item to the cart
+      Given User currently logged in
+      When User clicks the Add to Cart button on the inventory page
+      Then User should see the shopping cart badge  
 
   Rule: User can select multiple items from the catalog
 
     @inventory @select @multiple
-    Scenario: User selects multiple items from the catalog
-      Given I am currently logged in
-      And I am on the inventory page
-      When I click the "Add to cart" button for the first item
-      And I click the "Add to cart" button for the second item
-      And I click the "Add to cart" button for the third item
-      Then the buttons should change to "Remove" with a red color
-      And a notification indicating the items are added should be visible on the Cart button
+    Scenario Outline: User adds multiple items to the cart
+      Given User currently logged in
+      When User clicks the Add to Cart button on the inventory page
+      And User clicks another Add to Cart button on another item in the inventory page
+      Then User should see another added product in the shopping cart badge
