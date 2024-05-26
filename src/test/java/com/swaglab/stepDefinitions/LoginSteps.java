@@ -5,7 +5,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 import com.swaglab.utils.WebDriverSetup;
 
@@ -13,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.swaglab.locators.HomePageLocators;
+import com.swaglab.locators.DashboardPageLocators;
 import com.swaglab.locators.LoginPageLocators;
 
 public class LoginSteps {
     private static WebDriver driver;
-    private static HomePageLocators homePageLocators;
+    private static DashboardPageLocators dashboardPageLocator;
     private static LoginPageLocators loginPageLocators;
 
     @Before
@@ -26,11 +25,9 @@ public class LoginSteps {
         if (driver == null) {
             driver = WebDriverSetup.getDriver();
 
-            loginPageLocators = new LoginPageLocators();
-            PageFactory.initElements(driver, loginPageLocators);
+            loginPageLocators = new LoginPageLocators(driver);
 
-            homePageLocators = new HomePageLocators(driver);
-            PageFactory.initElements(driver, homePageLocators);
+            dashboardPageLocator = new DashboardPageLocators(driver);
         }
     }
 
@@ -38,9 +35,24 @@ public class LoginSteps {
     public void I_have_opened_the_browser() {
     }
 
-    @When("I open Swaglabs website")
-    public void I_open_Swaglabs_website() {
+    @When("I am on the Swag Labs login page")
+    public void I_am_on_the_Swag_Labs_login_page() {
         driver.get(LoginPageLocators.LOGIN_PAGE_URL);
+    }
+
+    @When("I enter the username {string}")
+    public void I_enter_the_username(String username) {
+        loginPageLocators.enterUsername(username);
+    }
+
+    @When("I enter the password {string}")
+    public void I_enter_the_password(String password) {
+        loginPageLocators.enterPassword(password);
+    }
+
+    @When("I click on the login button")
+    public void I_click_on_the_login_button() {
+        loginPageLocators.clickLoginButton();
     }
 
     @Then("username box should exist")
@@ -58,33 +70,13 @@ public class LoginSteps {
         assertTrue(loginPageLocators.getLoginButton().isDisplayed());
     }
 
-    @Given("I am on the Swag Labs login page")
-    public void I_am_on_the_Swag_Labs_login_page() {
-        driver.get(LoginPageLocators.LOGIN_PAGE_URL);
-    }
-
-    @When("I enter the username {string}")
-    public void I_enter_the_username(String username) {
-        loginPageLocators.enterUsername(username);
-    }
-
-    @And("I enter the password {string}")
-    public void I_enter_the_password(String password) {
-        loginPageLocators.enterPassword(password);
-    }
-
-    @And("I click on the login button")
-    public void I_click_on_the_login_button() {
-        loginPageLocators.clickLoginButton();
-    }
-
     @Then("I should be taken to the products page")
     public void I_should_be_taken_to_the_products_page() {
         String url = driver.getCurrentUrl();
 
-        assertEquals(url, HomePageLocators.INVENTORY_PAGE_URL);
-        assertTrue(homePageLocators.getInventoryList().isDisplayed());
-        assertEquals(HomePageLocators.INVENTORY_ITEMS_SIZE, homePageLocators.getInventoryItems().size());
+        assertEquals(url, DashboardPageLocators.INVENTORY_PAGE_URL);
+        assertTrue(dashboardPageLocator.getInventoryList().isDisplayed());
+        assertEquals(DashboardPageLocators.INVENTORY_ITEMS_SIZE, dashboardPageLocator.getInventoryItems().size());
     }
 
     @Then("I should see an error message {string}")
@@ -94,9 +86,9 @@ public class LoginSteps {
         assertEquals(errorMessage, actualErrorMessage);
     }
 
-    @And("^(Username|Password|Username and Password) field(s)? should be highlighted in red$")
+    @Then("^(Username|Password|Username and Password) field(s)? should be highlighted in red$")
     public void fields_should_be_highlighted_in_red(String emptyField, String plural) {
-        switch(emptyField) {
+        switch (emptyField) {
             case "Username":
                 assertTrue(loginPageLocators.getErrorUsernameField().isDisplayed());
                 break;
@@ -112,7 +104,6 @@ public class LoginSteps {
 
     @AfterAll
     public static void closeBrowser() {
-        System.out.println("Closing the browser after all login scenarios are executed.");
         driver.quit();
     }
 }

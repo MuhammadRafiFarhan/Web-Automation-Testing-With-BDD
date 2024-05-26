@@ -5,7 +5,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 import com.swaglab.utils.WebDriverSetup;
 
@@ -13,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 
-import com.swaglab.locators.HomePageLocators;
+import com.swaglab.locators.DashboardPageLocators;
 import com.swaglab.locators.LoginPageLocators;
 
 public class LogoutSteps {
     private static WebDriver driver;
-    private static HomePageLocators homepageLocator;
+    private static DashboardPageLocators dashboardPageLocator;
     private static LoginPageLocators loginPageLocators;
 
     @Before
@@ -26,11 +25,9 @@ public class LogoutSteps {
         if (driver == null) {
             driver = WebDriverSetup.getDriver();
             
-            loginPageLocators = new LoginPageLocators();
-            PageFactory.initElements(driver, loginPageLocators);
+            loginPageLocators = new LoginPageLocators(driver);
             
-            homepageLocator = new HomePageLocators(driver);
-            PageFactory.initElements(driver, homepageLocator);
+            dashboardPageLocator = new DashboardPageLocators(driver);
         }
     }
 
@@ -42,12 +39,12 @@ public class LogoutSteps {
 
     @When("I click on the menu button")
     public void I_click_on_the_menu_button() {
-        homepageLocator.clickBurgerMenu();
+        dashboardPageLocator.clickBurgerMenu();
     }
 
     @And("I click on the logout button")
     public void I_click_on_the_logout_button() {
-        homepageLocator.clickLogoutButtonLink();
+        dashboardPageLocator.clickLogoutButtonLink();
     }
 
     @Then("I should be redirected to the login page")
@@ -60,7 +57,6 @@ public class LogoutSteps {
 
     @AfterAll
     public static void closeBrowser() {
-        System.out.println("Closing the browser after all logout scenarios are executed.");
         driver.quit();
     }
 }

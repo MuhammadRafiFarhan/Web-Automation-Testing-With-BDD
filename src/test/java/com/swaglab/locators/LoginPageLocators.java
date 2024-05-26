@@ -1,7 +1,12 @@
 package com.swaglab.locators;
 
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Description:  LoginPageLocators file will only contain UI elements or Objects
@@ -9,6 +14,8 @@ import org.openqa.selenium.support.FindBy;
  *               on these elements.
  */
 public class LoginPageLocators {
+    WebDriver driver;
+    WebDriverWait wait;
 
     public static final String LOGIN_PAGE_URL = "https://www.saucedemo.com/";
 
@@ -28,7 +35,11 @@ public class LoginPageLocators {
     public WebElement errorMessage;
     
     // Constructor
-    public LoginPageLocators() {  }
+    public LoginPageLocators(WebDriver driver) { 
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        PageFactory.initElements(driver, this);
+     }
 
     public void enterUsername(String username) {
         usernameField.sendKeys(username);

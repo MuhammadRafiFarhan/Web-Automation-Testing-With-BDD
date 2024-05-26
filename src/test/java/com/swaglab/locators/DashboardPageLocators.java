@@ -15,7 +15,7 @@ import java.util.List;
  *               present on Home Page/Dashboard screen along with the operations to be performed
  *               on these elements.
  */
-public class HomePageLocators {
+public class DashboardPageLocators {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -67,10 +67,10 @@ public class HomePageLocators {
     private WebElement resetButtonLink;
 
     // Constructor
-    public HomePageLocators(WebDriver driver) {
+    public DashboardPageLocators(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        PageFactory.initElements(this.driver, this);
     }
 
     // Methods to interact with elements

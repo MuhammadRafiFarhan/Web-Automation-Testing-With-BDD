@@ -7,10 +7,9 @@ import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.PageFactory;
 
 import com.swaglab.utils.WebDriverSetup;
-import com.swaglab.locators.HomePageLocators;
+import com.swaglab.locators.DashboardPageLocators;
 import com.swaglab.locators.LoginPageLocators;
 import com.swaglab.locators.CartPageLocators;
 
@@ -22,57 +21,96 @@ import java.util.List;
 
 public class CartSteps {
     private static WebDriver driver;
-    private static HomePageLocators homepageLocator;
+    private static DashboardPageLocators dashboardPageLocator;
     private static LoginPageLocators loginPageLocators;
     private static CartPageLocators cartPageLocators;
+
+    private Actions actions;
 
     @Before
     public void initializeDriver() {
         if (driver == null) {
             driver = WebDriverSetup.getDriver();
             
-            loginPageLocators = new LoginPageLocators();
-            PageFactory.initElements(driver, loginPageLocators);
+            loginPageLocators = new LoginPageLocators(driver);
             
-            homepageLocator = new HomePageLocators(driver);
-            PageFactory.initElements(driver, homepageLocator);
-
+            dashboardPageLocator = new DashboardPageLocators(driver);
+            
             cartPageLocators = new CartPageLocators(driver);
-            PageFactory.initElements(driver, cartPageLocators);
         }
+
+        actions = new Actions(driver);
     }
 
-    @Given("I am currently logged in with authentic account")
-    public void i_am_currently_logged_in_with_authentic_account() {
+    @Given("I am currently logged in with authentic account to use cart feature")
+    public void i_am_currently_logged_in_with_authentic_account_to_use_cart_feature() {
         driver.get(LoginPageLocators.LOGIN_PAGE_URL);
         loginPageLocators.log_in("standard_user", "secret_sauce");
     }
 
-    @Given("I have added items to the cart")
-    public void i_have_added_items_to_the_cart() {
-        homepageLocator.clickAddToCartButton(0);
-        homepageLocator.clickAddToCartButton(1);
+    @Given("I have added items to the cart to use cart feature")
+    public void i_have_added_items_to_the_cart_to_use_cart_feature() {
+        dashboardPageLocator.clickAddToCartButton(0);
+        dashboardPageLocator.clickAddToCartButton(1);
+    }
+    
+    @Given("my cart is empty")
+    public void my_cart_is_empty() {
+        List<WebElement> removeButtons = cartPageLocators.getRemoveFromCartButtons();
+        for (WebElement button : removeButtons) {
+            button.click();
+        }
     }
 
+    @Given("I am on the cart page")
+    public void i_am_on_the_cart_page() {
+        // driver.get(CartPageLocators.CART_PAGE_URL);
+        dashboardPageLocator.clickShoppingCartLink();
+    }
+    
     @When("I hover over the cart icon in the top right corner")
     public void i_hover_over_the_cart_icon_in_the_top_right_corner() {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(homepageLocator.getShoppingCartLink()).perform();
+        actions.moveToElement(dashboardPageLocator.getShoppingCartLink()).perform();
     }
 
     @When("I click on the cart icon with the item count notification")
     public void i_click_on_the_cart_icon_with_the_item_count_notification() {
-        homepageLocator.clickShoppingCartLink();
+        dashboardPageLocator.clickShoppingCartLink();
+    }
+
+    @When("I hover over the {string} button")
+    public void i_hover_over_the_button(String button) {
+        WebElement element = null;
+
+        switch (button) {
+            case "Continue Shopping":
+                element = cartPageLocators.getContinueShoppingButton();
+                break;
+            case "Checkout":
+                element = cartPageLocators.getCheckoutButton();
+                break;
+        }
+        
+        actions.moveToElement(element).perform();
+    }
+
+    @When("I click the {string} button within cart feature")
+    public void i_click_the_button_within_cart_feature(String button) {
+        if (button.equals("Continue Shopping")) {
+            cartPageLocators.clickContinueShoppingButton();
+        } else if (button.equals("Checkout")) {
+            cartPageLocators.clickCheckoutButton();
+        }
     }
 
     @Then("I should be redirected to the cart page")
     public void i_should_be_redirected_to_the_cart_page() {
         assertTrue(driver.getCurrentUrl().contains(CartPageLocators.CART_PAGE_URL));
     }
-
+    
     @Then("I should see item cards equal to the number of items in the cart notification")
     public void i_should_see_item_cards_equal_to_the_number_of_items_in_the_cart_notification() {
-        int expectedItems = Integer.parseInt(homepageLocator.getShoppingCartBadge().getText());
+        int expectedItems = Integer.parseInt(dashboardPageLocator.getShoppingCartBadge().getText());
         List<WebElement> cartItems = cartPageLocators.getInventoryItemNames();
         assertEquals(expectedItems, cartItems.size());
     }
@@ -88,53 +126,24 @@ public class CartSteps {
         assertTrue(cartPageLocators.getContinueShoppingButton().isDisplayed());
         assertTrue(cartPageLocators.getCheckoutButton().isDisplayed());
     }
+    
 
-    @Given("I am on the cart page")
-    public void i_am_on_the_cart_page() {
-        homepageLocator.clickShoppingCartLink();
-        assertTrue(driver.getCurrentUrl().contains(CartPageLocators.CART_PAGE_URL));
-    }
-
-    @When("I hover over the {string} button")
-    public void i_hover_over_the_button(String button) {
-        WebElement element = button.equals("Continue Shopping") 
-                ? cartPageLocators.getContinueShoppingButton() 
-                : cartPageLocators.getCheckoutButton();
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).perform();
-    }
-
-    @When("I click the {string} button")
-    public void i_click_the_button(String button) {
-        if (button.equals("Continue Shopping")) {
-            cartPageLocators.clickContinueShoppingButton();
-        } else if (button.equals("Checkout")) {
-            cartPageLocators.clickCheckoutButton();
-        }
-    }
 
     @Then("I should be redirected to the inventory page")
     public void i_should_be_redirected_to_the_inventory_page() {
-        assertTrue(driver.getCurrentUrl().contains(HomePageLocators.INVENTORY_PAGE_URL));
+        assertTrue(driver.getCurrentUrl().contains(DashboardPageLocators.INVENTORY_PAGE_URL));
     }
 
     @Then("I should see the inventory page displaying a catalog of six items")
     public void i_should_see_the_inventory_page_displaying_a_catalog_of_six_items() {
-        List<WebElement> inventoryItems = homepageLocator.getInventoryItems();
-        assertEquals(HomePageLocators.INVENTORY_ITEMS_SIZE, inventoryItems.size());
-    }
-
-    @Given("my cart is empty")
-    public void my_cart_is_empty() {
-        List<WebElement> removeButtons = homepageLocator.getRemoveFromCartButtons();
-        for (WebElement button : removeButtons) {
-            button.click();
-        }
+        List<WebElement> inventoryItems = dashboardPageLocator.getInventoryItems();
+        assertEquals(DashboardPageLocators.INVENTORY_ITEMS_SIZE, inventoryItems.size());
     }
 
     @Then("I should remain on the cart page titled {string}")
     public void i_should_remain_on_the_cart_page_titled(String title) {
-        assertTrue(driver.getTitle().contains(title));
+        assertTrue(driver.getCurrentUrl().contains(CartPageLocators.CART_PAGE_URL), "You are not on the cart page anymore");
+        assertEquals(title, cartPageLocators.getPageTitle().getText());
     }
 
     @Then("a red error message box with white text should appear saying {string}")
@@ -150,7 +159,6 @@ public class CartSteps {
 
     @AfterAll
     public static void closeBrowser() {
-        System.out.println("Closing the browser after all cart scenarios are executed.");
         if (driver != null) {
             driver.quit();
         }

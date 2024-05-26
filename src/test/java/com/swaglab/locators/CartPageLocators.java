@@ -21,11 +21,15 @@ public class CartPageLocators {
 
     public static final String CART_PAGE_URL = "https://www.saucedemo.com/cart.html";
 
+    // Header page title
+    @FindBy(css = ".header_secondary_container .title")
+    private WebElement pageTitle;
+
     // Cart List
     @FindBy(className = "inventory_item_name")
     private List<WebElement> inventoryItemNames;
 
-    @FindBy(className = "btn_secondary")
+    @FindBy(className = "cart_button")
     private List<WebElement> removeFromCartButtons;
 
     @FindBy(id = "continue-shopping")
@@ -57,8 +61,8 @@ public class CartPageLocators {
     // Constructor
     public CartPageLocators(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        PageFactory.initElements(this.driver, this);
     }
 
     // Methods to interact with elements
@@ -99,6 +103,10 @@ public class CartPageLocators {
     }
 
     // Getters for elements (if needed)
+    public WebElement getPageTitle() {
+        return wait.until(ExpectedConditions.visibilityOf(pageTitle));
+    }
+
     public List<WebElement> getInventoryItemNames() {
         return inventoryItemNames;
     }
@@ -108,11 +116,11 @@ public class CartPageLocators {
     }
 
     public WebElement getContinueShoppingButton() {
-        return continueShoppingButton;
+        return wait.until(ExpectedConditions.visibilityOf(continueShoppingButton));
     }
 
     public WebElement getCheckoutButton() {
-        return checkoutButton;
+        return wait.until(ExpectedConditions.visibilityOf(checkoutButton));
     }
 
     public WebElement getBurgerMenu() {

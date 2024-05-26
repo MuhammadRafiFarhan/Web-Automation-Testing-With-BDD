@@ -1,10 +1,12 @@
 Feature: Inventory Page Functionality
 
+  Background:
+    Given User currently logged in to use dashboard
+
   Rule: User can view the catalog of items available for order on the Inventory page
 
     @inventory @view
     Scenario: User views the catalog of items
-      Given User currently logged in
       When I open Swaglabs inventory page
       Then inventory list should exist
       And add to cart button should exist
@@ -17,7 +19,6 @@ Feature: Inventory Page Functionality
 
     @inventory @select
     Scenario: User adds an item to the cart
-      Given User currently logged in
       When User clicks the Add to Cart button on the inventory page
       Then User should see the shopping cart badge  
 
@@ -25,7 +26,6 @@ Feature: Inventory Page Functionality
 
     @inventory @select @multiple
     Scenario Outline: User adds multiple items to the cart
-      Given User currently logged in
       When User clicks the Add to Cart button on the inventory page
       And User clicks another Add to Cart button on another item in the inventory page
       Then User should see another added product in the shopping cart badge
