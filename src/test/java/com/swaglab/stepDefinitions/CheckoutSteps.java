@@ -22,7 +22,7 @@ import com.swaglab.locators.CheckoutPageLocators;
 public class CheckoutSteps {
     private static WebDriver driver;
     private static LoginPageLocators loginPageLocators;
-    private static DashboardPageLocators dashboardPageLocatos;
+    private static DashboardPageLocators dashboardPageLocators;
     private static CartPageLocators cartPageLocators;
     private static CheckoutPageLocators checkoutPageLocators;
 
@@ -33,7 +33,7 @@ public class CheckoutSteps {
 
             loginPageLocators = new LoginPageLocators(driver);
             
-            dashboardPageLocatos = new DashboardPageLocators(driver);
+            dashboardPageLocators = new DashboardPageLocators(driver);
 
             cartPageLocators = new CartPageLocators(driver);
 
@@ -49,13 +49,13 @@ public class CheckoutSteps {
 
     @Given("I have added items to the cart to use checkout feature")
     public void i_have_added_items_to_the_cart_to_use_checkout_feature() {
-        dashboardPageLocatos.clickAddToCartButton(0);
-        dashboardPageLocatos.clickAddToCartButton(1);
+        dashboardPageLocators.clickAddToCartButton(0);
+        dashboardPageLocators.clickAddToCartButton(1);
     }
 
     @Given("I have been redirected to the checkout your information page")
     public void i_have_been_redirected_to_the_checkout_your_information_page() {
-        dashboardPageLocatos.clickShoppingCartLink();
+        dashboardPageLocators.clickShoppingCartLink();
         cartPageLocators.clickCheckoutButton();
     }
 

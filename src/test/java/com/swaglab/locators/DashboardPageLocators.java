@@ -74,6 +74,14 @@ public class DashboardPageLocators {
     }
 
     // Methods to interact with elements
+    public void clickItemNames(int index) {
+        wait.until(ExpectedConditions.elementToBeClickable(inventoryItemNames.get(index))).click();
+    }
+
+    public void clickItemImgs(int index) {
+        wait.until(ExpectedConditions.elementToBeClickable(inventoryItemImgs.get(index))).click();
+    }
+
     public void clickAddToCartButton(int index) {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtons.get(index))).click();
     }
