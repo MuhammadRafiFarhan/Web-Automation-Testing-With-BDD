@@ -1,5 +1,6 @@
 src/test/resources/drivers/*
 src/test/resources/WebDriver.properties
+.env
 .idea
 *.log
 *.iml
