@@ -185,4 +185,8 @@ public class DashboardPageLocators {
     public WebElement getResetButtonLink() {
         return resetButtonLink;
     }
+
+    public WebElement getCloseBurgerMenu() {
+        return closeBurgerMenu;
+    }
 }
