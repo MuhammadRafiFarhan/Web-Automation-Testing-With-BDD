@@ -51,6 +51,9 @@ public class DashboardPageLocators {
     private List<WebElement> removeFromCartButtons;
 
     // Burger Menu
+    @FindBy(className = "bm-menu-wrap")
+    private WebElement sideBar;
+
     @FindBy(id = "react-burger-menu-btn")
     private WebElement burgerMenu;
 
@@ -121,7 +124,7 @@ public class DashboardPageLocators {
         wait.until(ExpectedConditions.elementToBeClickable(resetButtonLink)).click();
     }
 
-    public void clickCloseBurgerMenu() {
+    public void clickCloseBurgerButton() {
         wait.until(ExpectedConditions.elementToBeClickable(closeBurgerMenu)).click();
     }
 
@@ -166,6 +169,10 @@ public class DashboardPageLocators {
         return removeFromCartButtons;
     }
 
+    public WebElement getSideBar() {
+        return sideBar;
+    }
+
     public WebElement getBurgerMenu() {
         return burgerMenu;
     }
@@ -184,5 +191,9 @@ public class DashboardPageLocators {
 
     public WebElement getResetButtonLink() {
         return resetButtonLink;
+    }
+
+    public WebElement getCloseBurgerMenu() {
+        return closeBurgerMenu;
     }
 }

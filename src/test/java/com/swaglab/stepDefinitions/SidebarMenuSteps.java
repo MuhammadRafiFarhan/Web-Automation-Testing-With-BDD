@@ -5,13 +5,16 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import com.swaglab.utils.WebDriverSetup;
 import com.swaglab.locators.DashboardPageLocators;
 import com.swaglab.locators.LoginPageLocators;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -40,7 +43,7 @@ public class SidebarMenuSteps {
 
     @And("User is on the Dashboard page")
     public void i_open_swaglabs_inventory_page() {
-        driver.get(dashboardPageLocator.INVENTORY_PAGE_URL);
+        driver.get(DashboardPageLocators.INVENTORY_PAGE_URL);
     }
 
     @When("User clicks the Sidebar button in the top left corner with a hamburger icon")
@@ -50,7 +53,7 @@ public class SidebarMenuSteps {
 
     @Then("Sidebar menu should appear")
     public void sidebar_menu_should_exist() {
-        assertTrue(dashboardPageLocator.getBurgerMenu().isDisplayed());
+        assertTrue(dashboardPageLocator.getSideBar().isDisplayed());
     }
 
     //TC2
@@ -72,12 +75,15 @@ public class SidebarMenuSteps {
     //TC3
     @When("User clicks the cross button on the sidebar")
     public void user_clicks_cross_button() {
-        dashboardPageLocator.clickCloseBurgerMenu();
-    }
+        dashboardPageLocator.clickCloseBurgerButton();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(dashboardPageLocator.getSideBar()));
+    }
+    
     @Then("Sidebar menu should be closed")
     public void sidebar_menu_should_close() {
-        assertFalse(dashboardPageLocator.getBurgerMenu().isDisplayed());
+        assertEquals("true", dashboardPageLocator.getSideBar().getAttribute("aria-hidden"));
     }
 
 
