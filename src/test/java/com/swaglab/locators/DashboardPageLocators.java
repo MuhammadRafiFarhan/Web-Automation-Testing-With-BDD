@@ -51,6 +51,9 @@ public class DashboardPageLocators {
     private List<WebElement> removeFromCartButtons;
 
     // Burger Menu
+    @FindBy(className = "bm-menu-wrap")
+    private WebElement sideBar;
+
     @FindBy(id = "react-burger-menu-btn")
     private WebElement burgerMenu;
 
@@ -164,6 +167,10 @@ public class DashboardPageLocators {
 
     public List<WebElement> getRemoveFromCartButtons() {
         return removeFromCartButtons;
+    }
+
+    public WebElement getSideBar() {
+        return sideBar;
     }
 
     public WebElement getBurgerMenu() {
