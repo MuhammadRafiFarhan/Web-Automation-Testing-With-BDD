@@ -66,6 +66,9 @@ public class DashboardPageLocators {
     @FindBy(id = "reset_sidebar_link")
     private WebElement resetButtonLink;
 
+    @FindBy(id = "react-burger-cross-btn")
+    private WebElement closeBurgerMenu;
+
     // Constructor
     public DashboardPageLocators(WebDriver driver) {
         this.driver = driver;
@@ -119,7 +122,7 @@ public class DashboardPageLocators {
     }
 
     public void clickCloseBurgerButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(closeBurgerMenu)).click();
     }
 
     public boolean isShoppingCartBadgeDisplayed() {
@@ -181,5 +184,9 @@ public class DashboardPageLocators {
 
     public WebElement getResetButtonLink() {
         return resetButtonLink;
+    }
+
+    public WebElement getCloseBurgerMenu() {
+        return closeBurgerMenu;
     }
 }

@@ -36,4 +36,4 @@ Feature: Details Page Layout Verification
             Given Product "Sauce Labs Bike Light" "has been" added to the cart
             When I click the "Remove" button on the product detail page
             Then the "Add to cart" button should exist
-            And the encircled number of item should "not exist on top of the cart icon
+            And the encircled number of item should not exist on top of the cart icon
