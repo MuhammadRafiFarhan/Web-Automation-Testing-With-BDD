@@ -5,7 +5,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 import com.swaglab.utils.WebDriverSetup;
 import com.swaglab.locators.DashboardPageLocators;
@@ -40,7 +39,7 @@ public class SidebarMenuSteps {
 
     @And("User is on the Dashboard page")
     public void i_open_swaglabs_inventory_page() {
-        driver.get(dashboardPageLocator.INVENTORY_PAGE_URL);
+        driver.get(DashboardPageLocators.INVENTORY_PAGE_URL);
     }
 
     @When("User clicks the Sidebar button in the top left corner with a hamburger icon")
@@ -72,7 +71,7 @@ public class SidebarMenuSteps {
     //TC3
     @When("User clicks the cross button on the sidebar")
     public void user_clicks_cross_button() {
-        dashboardPageLocator.clickCloseBurgerMenu();
+        dashboardPageLocator.clickCloseBurgerButton();
     }
 
     @Then("Sidebar menu should be closed")

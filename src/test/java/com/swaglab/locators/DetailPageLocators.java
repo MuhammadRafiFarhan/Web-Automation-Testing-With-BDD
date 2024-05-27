@@ -1,5 +1,6 @@
 package com.swaglab.locators;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 /**
  * Description:  DetailPageLocators file will only contain UI elements or Objects
@@ -18,7 +20,8 @@ public class DetailPageLocators {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public static final String DETAIL_PAGE_URL = "https://www.saucedemo.com/inventory-item.html?id=0";
+    // ISSUE #1: Tetapkan URL detail page produk mana yang akan diuji
+    public static final String DETAIL_PAGE_URL_ID_0 = "https://www.saucedemo.com/inventory-item.html?id=0";
 
     // Detail List
     @FindBy(className = "inventory_details_name")
@@ -42,28 +45,15 @@ public class DetailPageLocators {
     @FindBy(id = "back-to-products")
     private WebElement backToProductsButton;
 
-   // Burger Menu
-   @FindBy(id = "react-burger-menu-btn")
-   private WebElement burgerMenu;
-
-   @FindBy(id = "inventory_sidebar_link")
-   private WebElement inventoryButtonLink;
-
-   @FindBy(id = "about_sidebar_link")
-   private WebElement aboutButtonLink;
-
-   @FindBy(id = "logout_sidebar_link")
-   private WebElement logoutButtonLink;
-
-   @FindBy(id = "reset_sidebar_link")
-   private WebElement resetButtonLink;
-
+    @FindBy(className = "shopping_cart_link")
+    private WebElement shoppingCartIcon;
 
     // Constructor
     public DetailPageLocators(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        PageFactory.initElements(this.driver, this);
     }
 
     // Methods to interact with elements
@@ -78,26 +68,6 @@ public class DetailPageLocators {
 
     public void clickBackToProductsButton() {
         wait.until(ExpectedConditions.elementToBeClickable(backToProductsButton)).click();
-    }
-
-    public void clickBurgerMenu() {
-        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu)).click();
-    }
-
-    public void clickInventoryButtonLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(inventoryButtonLink)).click();
-    }
-
-    public void clickAboutButtonLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(aboutButtonLink)).click();
-    }
-
-    public void clickLogoutButtonLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(logoutButtonLink)).click();
-    }
-
-    public void clickResetButtonLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(resetButtonLink)).click();
     }
 
     // Getters for elements (if needed)
@@ -129,23 +99,9 @@ public class DetailPageLocators {
         return backToProductsButton;
     }
 
-    public WebElement getBurgerMenu() {
-        return burgerMenu;
-    }
-
-    public WebElement getInventoryButtonLink() {
-        return inventoryButtonLink;
-    }
-
-    public WebElement getAboutButtonLink() {
-        return aboutButtonLink;
-    }
-
-    public WebElement getLogoutButtonLink() {
-        return logoutButtonLink;
-    }
-
-    public WebElement getResetButtonLink() {
-        return resetButtonLink;
+    public boolean isShoppingCartBadgeDisplayed() {
+        List<WebElement> cartBadge = wait.until(ExpectedConditions.visibilityOf(shoppingCartIcon)).findElements(By.className("shopping_cart_badge"));
+        
+        return cartBadge.size() > 0;
     }
 }

@@ -121,7 +121,7 @@ public class DashboardPageLocators {
         wait.until(ExpectedConditions.elementToBeClickable(resetButtonLink)).click();
     }
 
-    public void clickCloseBurgerMenu() {
+    public void clickCloseBurgerButton() {
         wait.until(ExpectedConditions.elementToBeClickable(closeBurgerMenu)).click();
     }
 
