@@ -118,6 +118,10 @@ public class DashboardPageLocators {
         wait.until(ExpectedConditions.elementToBeClickable(resetButtonLink)).click();
     }
 
+    public void clickCloseBurgerButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu)).click();
+    }
+
     public boolean isShoppingCartBadgeDisplayed() {
         return wait.until(ExpectedConditions.visibilityOf(shoppingCartBadge)).isDisplayed();
     }
