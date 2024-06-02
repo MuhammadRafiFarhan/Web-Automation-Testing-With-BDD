@@ -30,9 +30,7 @@ Repository ini merupakan gabungan dari dua project berbeda, yakni:
   - [References](#references)
 
 ## Software Under Test (SUT)
-Software yang diuji adalah aplikasi web e-commerce bernama [Swag Labs](https://www.saucedemo.com/). Aplikasi ini menyediakan enam buah produk yang dapat dibeli oleh pengguna. Pengguna dapat melakukan login terlebih dahulu untuk mengakses fitur-fitur yang ada pada aplikasi ini. Aplikasi ini memiliki beberapa fitur, dengan fitur yang dijadikan fokus pada pengujian ini adalah:
-1. Fitur login
-2. Fitur logout<br>
+Software yang diuji adalah aplikasi web e-commerce bernama [Swag Labs](https://www.saucedemo.com/). Aplikasi ini menyediakan enam buah produk yang dapat dibeli oleh pengguna. Pengguna dapat melakukan login terlebih dahulu untuk mengakses fitur-fitur yang ada pada aplikasi ini.
 
 Adapun software kedua yang diuji adalah API yang disediakan oleh [Dummy API](https://dummyapi.io/). API ini menyediakan data-data dummy yang dapat digunakan untuk keperluan pengujian. Data yang diuji pada API ini adalah data pada bagian yang dimarkahi User Controller. Method API yang dapat diuji adalah:
 
@@ -44,7 +42,7 @@ Adapun software kedua yang diuji adalah API yang disediakan oleh [Dummy API](htt
    ```json
    {
      "firstName": "string",
-      "lastName": "string",
+     "lastName": "string",
      "email": "string",
    }
    ```
@@ -248,6 +246,8 @@ Berikut adalah struktur folder dari proyek ini:
         // test script
     }
    ```
+
+**Kembali ke [Daftar Isi](#table-of-contents)**
 
 
 ### Untuk Pengujian Web Otomatis (Swag Labs)
@@ -478,6 +478,9 @@ Test Case dihasilkan mengggunakan metode ECP dan BVA. Berikut adalah daftar test
 18. **Update title user dengan title di luar enum yang diizinkan, yaitu haryapatih**<br>
     Method API: `PUT /user/{id}`<br><br>
     User mencoba mengubah title user dengan title yang tidak terdaftar dalam enum yang diizinkan. Seharusnya mengembalikan status kode 400 dengan error BODY_NOT_VALID.
+
+**Kembali ke [Daftar Isi](#table-of-contents)**
+
 
 ### Untuk Pengujian Aplikasi Web Swag Labs
 Terdapat total 9 (sembilan) buah test case. Berikut merupakan desain test case yang digunakan dalam pengujian web secara otomatis:
