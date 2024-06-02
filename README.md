@@ -406,36 +406,136 @@ Rata-rata waktu penyelesaian eksekusi seluruh test case adalah sekitar 1 hingga 
 Test Case dihasilkan mengggunakan metode ECP dan BVA. Berikut adalah daftar test case yang diuji pada proyek ini:
 
 #### Test Case Valid API
-<!-- TO DO -->
+1. **Membuat user dengan mengisi firstName, lastName, dan email**<br>
+   Method API: `POST /user/create`<br><br>
+   User dapat menambah user baru dengan mengisi field firstName, lastName, dan email yang valid sebagai body request.
+2. **Operasi penghapusan satu user menggunakan id user yang terdaftar dalam sistem**<br>
+   Method API: `DELETE /user/{id}`<br><br>
+   User dapat menghapus user yang telah terdaftar dalam sistem dengan menggunakan id user yang valid.
+3. **Operasi get data user menggunakan id user yang valid dan terdaftar dalam sistem**<br>
+   Method API: `GET /user/{id}`<br><br>
+   User dapat mendapatkan data user yang telah terdaftar dalam sistem dengan menggunakan id user yang valid.
+4. **Update title user dengan title mr**<br>
+   Method API: `PUT /user/{id}`<br><br>
+   User dapat mengubah title user dengan title yang terdaftar dalam enum yang diizinkan, salah satunya adalah "mr".
+5. **Update title user dengan title kosong**<br>
+   Method API: `PUT /user/{id}`<br><br>
+   User dapat mengubah title user menjadi title yang kosong.
+
+
 #### Test Case Invalid API
-<!-- TO DO -->
+1. **Membuat user  dengan dengan mengisi firstName, lastName saja**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field firstName dan lastName saja sebagai body request.
+2. **Membuat user dengan first name dan email saja**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field firstName dan email saja sebagai body request.
+3. **Membuat user dengan last name dan email saja**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field lastName dan email saja sebagai body request.
+4. **Membuat user dengan firstName minimum**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field firstName dengan jumlah karakter minimum (2 karakter) sebagai body request.
+5. **Membuat user dengan firstName maksimum**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field firstName dengan jumlah karakter maksimum (50 karakter) sebagai body request.
+6. **Membuat user dengan lastName minimum**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field lastName dengan jumlah karakter minimum (2 karakter) sebagai body request.
+7. **Membuat user dengan lastName maksimum**<br>
+   Method API: `POST /user/create`<br><br>
+   User mencoba menambah user baru dengan mengisi field lastName dengan jumlah karakter maksimum (50 karakter) sebagai body request.
+8. **Operasi penghapusan satu user menggunakan id user yang tidak sesuai format**<br>
+   Method API: `DELETE /user/{id}`<br><br>
+   User mencoba menghapus user dengan mencoba menggunakan id user yang tidak sesuai format. Seharusnya mengembalikan status kode 400 dengan error PARAMS_NOT_VALID.
+9. **Operasi penghapusan satu user dengan tanpa menggunakan header request app-id**<br>
+   Method API: `DELETE /user/{id}`<br><br>
+   User mencoba menghapus user tanpa menggunakan header request app-id. Seharusnya mengembalikan status kode 403 dengan error APP_ID_MISSING.
+10. **Operasi penghapusan satu user dengan menggunakan header request app-id yang tidak sesuai format**<br>
+    Method API: `DELETE /user/{id}`<br><br>
+    User mencoba menghapus user dengan menggunakan header request app-id yang tidak sesuai format. Seharusnya mengembalikan status kode 403 dengan error APP_ID_NOT_EXIST.
+11. **Operasi penghapusan satu user menggunakan id user yang tidak terdaftar di sistem**<br>
+    Method API: `DELETE /user/{id}`<br><br>
+    User mencoba menghapus user dengan menggunakan id user yang tidak terdaftar di sistem. Seharusnya mengembalikan status kode 404 dengan error RESOURCE_NOT_FOUND.
+12. **Operasi get data user menggunakan id user yang tidak sesuai format**<br>
+    Method API: `GET /user/{id}`<br><br>
+    User mencoba mendapatkan data user dengan menggunakan id user yang tidak sesuai format. Seharusnya mengembalikan status kode 400 dengan error PARAMS_NOT_VALID.
+13. **Operasi get data user dengan tanpa menggunakan header request app-id**<br>
+    Method API: `GET /user/{id}`<br><br>
+    User mencoba mendapatkan data user tanpa menggunakan header request app-id. Seharusnya mengembalikan status kode 403 dengan error APP_ID_MISSING.
+14. **Operasi get data user dengan menggunakan header request app-id yang tidak sesuai format**<br>
+    Method API: `GET /user/{id}`<br><br>
+    User mencoba mendapatkan data user dengan menggunakan header request app-id yang tidak sesuai format. Seharusnya mengembalikan status kode 403 dengan error APP_ID_NOT_EXIST.
+15. **Operasi get data user menggunakan id user yang tidak terdaftar dalam sistem**<br>
+    Method API: `GET /user/{id}`<br><br>
+    User mencoba mendapatkan data user dengan menggunakan id user yang tidak terdaftar dalam sistem. Seharusnya mengembalikan status kode 404 dengan error RESOURCE_NOT_FOUND.
+16. **Operasi update tidak menggunakan id user**<br>
+    Method API: `PUT /user/` (menghilangkan akhiran user_id pada endpoint)<br><br>
+    User mencoba mengubah data user tanpa menggunakan id user pada bagian endpoint. Seharusnya mengembalikan status kode 404 dengan error PATH_NOT_FOUND.
+17. **Operasi update menggunakan id user yang tidak valid**<br>
+    Method API: `PUT /user/{id}`<br><br>
+    User mencoba mengubah data user dengan menggunakan id user yang tidak valid. Seharusnya mengembalikan status kode 400 dengan error PARAMS_NOT_VALID.
+18. **Update title user dengan title di luar enum yang diizinkan, yaitu haryapatih**<br>
+    Method API: `PUT /user/{id}`<br><br>
+    User mencoba mengubah title user dengan title yang tidak terdaftar dalam enum yang diizinkan. Seharusnya mengembalikan status kode 400 dengan error BODY_NOT_VALID.
 
 ### Untuk Pengujian Aplikasi Web Swag Labs
 Terdapat total 9 (sembilan) buah test case. Berikut merupakan desain test case yang digunakan dalam pengujian web secara otomatis:
 
 #### Test Case Valid Web
-<!-- TO DO -->
-1. **Login Page Validation**<br>
-   User can access login page from the website and see the login form.
-2. **Successful Login**<br>
-   User successfully login to the website using valid credentials (valid username and password).
-3. **Successful Logout**<br>
-   User successfully logout from the website after login and access logout menu from burger menu.
+
+1. **User can login to Swag Labs with valid credential -- Successful Login**<br>
+   User dapat login ke website Swag Labs dengan menggunakan username dan password yang valid.
+2. **Login Functionality Exists**<br>
+   User dapat melihat form login pada halaman utama website Swag Labs.
+3. **User can view the catalog of items available for order on the Inventory page**
+   User dapat melihat katalog item yang tersedia untuk dipesan pada halaman Inventory.
+4. **User adds an item to the cart**<br>
+   User dapat menambahkan item ke dalam keranjang belanja.
+5. **User adds multiple items to the cart**<br>
+   User dapat menambahkan beberapa item ke dalam keranjang belanja.
+6. **Product detail's page layout verification**<br>
+   User dapat melihat layout halaman detail produk.
+7. **Adding a product to the cart from the product detail page**<br>
+   User dapat menambahkan produk ke dalam keranjang belanja dari halaman detail produk.
+8. **Removing a product from the cart from the product detail page**<br>
+   User dapat menghapus produk dari keranjang belanja dari halaman detail produk.
+9. **User views the list of items in the cart**<br>
+   User dapat melihat daftar item yang ada di keranjang belanja.
+10. **User clicks "Continue Shopping" button from the cart page**<br>
+    User dapat kembali ke halaman Inventory dari halaman keranjang belanja.
+11. **Checkout for product that already added in cart until payment successful**<br>
+    User dapat melakukan checkout untuk produk yang telah ditambahkan ke keranjang belanja hingga pembayaran berhasil.
+12. **User clicks the sidebar button**<br>
+    User dapat menekan tombol sidebar.
+13. **User clicks "About" on the sidebar menu**<br>
+    User dapat menekan menu "About" pada sidebar.
+14. **User clicks the cross button on the sidebar**<br>
+    User dapat menekan tombol silang pada sidebar.
+15. **Successful Logout**<br>
+    User dapat logout dari website Swag Labs dengan sukses.
+
 
 #### Test Case Invalid Web
-<!-- TO DO -->
-4. **Failed Login (Invalid Username)**<br>
-   User failed to login to the website using invalid username.
-5. **Failed Login (Invalid Password)**<br>
-   User failed to login to the website using invalid password.
-6. **Failed Login (Invalid Username and Password)**<br>
-   User failed to login to the website using invalid username and password.
-7. **Failed Login (Empty Username)**<br>
-   User failed to login to the website using empty username.
-8. **Failed Login (Empty Password)**<br>
-   User failed to login to the website using empty password.
-9. **Failed Login (Empty Username and Password)**<br>
-   User failed to login to the website using empty username and password.
+
+1. **Login with Empty Username Field Only**<br>
+   User mencoba login ke website Swag Labs dengan mengosongkan field username saja.
+2. **Login with Empty Password Field Only**<br>
+   User mencoba login ke website Swag Labs dengan mengosongkan field password saja.
+3. **Login with Empty Username and Password Fields**<br>
+   User mencoba login ke website Swag Labs dengan mengosongkan field username dan password.
+4. **Entering Incorrect Username Field with Correct Password**<br>
+   User mencoba login ke website Swag Labs dengan memasukkan username yang salah dan password yang benar.
+5. **Entering Correct Username Field with Incorrect Password**<br>
+   User mencoba login ke website Swag Labs dengan memasukkan username yang benar dan password yang salah.
+6. **Entering Incorrect Both Username and Password Fields**<br>
+   User mencoba login ke website Swag Labs dengan memasukkan username dan password yang salah.
+7. **User clicks "Checkout" button with an empty cart**<br>
+   User mencoba menekan tombol "Checkout" ketika keranjang belanja kosong.
+8. **Checkout attempt by leaving zip/postal code field empty on Checkout: Your Information page**<br>
+   User mencoba melakukan checkout dengan mengosongkan field kode pos pada halaman Checkout: Your Information.
+9. **Checkout attempt by leaving all fields empty on Checkout: Your Information page**<br>
+   User mencoba melakukan checkout dengan mengosongkan semua field pada halaman Checkout: Your Information.
 
 **Kembali ke [Daftar Isi](#table-of-contents)**
 
@@ -448,7 +548,7 @@ Terdapat total 9 (sembilan) buah test case. Berikut merupakan desain test case y
 Mahasiswa Kelas 3B Program Studi DIV-Teknik Informatika<br>
 Jurusan Teknik Komputer dan Informatika<br>
 Politeknik Negeri Bandung<br>
-(C) Mei 2024
+(C) 2 Juni 2024
 
 
 ## References
